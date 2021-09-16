@@ -8,8 +8,10 @@ export default function UserForm() {
 		history.push("/covid-form/2");
 	}
     return (
-        <div>
-            <UserIdentification handleClick={handleClick}/>
-        </div>
-    )
+			<div>
+				<UserIdentification handleClick={handleClick} />
+				<div className="scan-logo-container scan"></div>
+				<div className="scan-image-container scan2"></div>
+			</div>
+		)
 }

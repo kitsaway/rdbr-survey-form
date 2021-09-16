@@ -6,43 +6,74 @@ export default class UserIdentification extends Component {
 		firstName: "",
 		lastName: "",
 		email: "",
-		firstNameError: true,
-		lastNameError: true,
-		emailError: true,
-		isClicked: false,
+		firstNameError: false,
+		lastNameError: false,
+		emailError: false,
+		firstNameErrorMessage: "",
+		lastNameErrorMessage: "",
+		emailErrorMessage: "",
 	}
 
-	validateName = (name) => {
+	// Validation for Name and Lastname is the same
+	validateName = (name, nameOrLname) => {
 		const nameReg = new RegExp("^[a-zA-Zა-ჰ]+$")
+		let nameErrorMessage
+		nameErrorMessage =
+			name.length <= 3
+				? "*სახელის ველი უნდა შედგებოდეს მინიმუმ 3 სიმბოლოგან"
+				: name.length > 255
+				? "*სახელის ველი უნდა შედგებოდეს მაქსიმუმ 255 სიმბოლოსგან"
+				: ""
+		nameErrorMessage += !nameReg.test(name)
+			? " *სახელის ველი უნდა შეიცავდეს მხოლოდ ალფაბეტის სიმბოლოებს(ა-ჰ, a-z, A-Z)"
+			: ""
+		this.setState({
+			[`${nameOrLname}ErrorMessage`]: nameErrorMessage,
+		})
 		return name.length >= 3 && name.length <= 255 && nameReg.test(name)
 	}
 
 	validateEmail = (email) => {
 		let emailReg = new RegExp(".+@redberry.ge")
+		let emailErrorMessage
+		emailErrorMessage = !email.includes("@")
+			? "*თქვენს მიერ შეყვანილი მეილი არასწორია"
+			: !emailReg.testEmail
+			? "*გთხოვთ დარეგისტრირდეთ რედბერის მეილით (youremail@redberry.ge)"
+			: ""
+    this.setState({
+      emailErrorMessage: emailErrorMessage
+    })
 		return emailReg.test(email)
 	}
 
-	// Handle Field Change
+	// Handle Input Field Change
 	handleChange = (e) => {
 		this.setState({
 			[e.target.name]: e.target.value,
-			//nameError: e.target.value.length < 3
-			[`${e.target.name}Error`]:
-				e.target.name === "firstName" || e.target.name === "lastName"
-					? this.validateName(e.target.value)
-					: this.validateEmail(e.target.value),
 		})
 	}
+	// Update State if inputs are invalid
+	// If inputs are valid, change route
+	handleButtonClicked = () => {
+		const isFirstNameValid = this.validateName(
+			this.state.firstName,
+			"firstName"
+		)
+		const isLastNameValid = this.validateName(this.state.lastName, "lastName")
+		const isEmailValid = this.validateEmail(this.state.email)
 
-	//თუ NEXT ღილაკზე დაწკაპებულია ამოწმებს
-	// checkForNameError = (name) => {
-	// 	const nameReg = new RegExp("^[a-zA-Zა-ჰ]+$");
-	// 	if (name.length < 3) {
-	// 		console.log('Name Length Error');
-	// 	} else if (!nameReg.test(name)) {
-	// 		console.log("Name Validation Error")
-	// 	}
-	// }
+		this.setState({
+			firstNameError: isFirstNameValid,
+			lastNameError: isLastNameValid,
+			emailError: isEmailValid,
+		})
+
+		isFirstNameValid &&
+			isLastNameValid &&
+			isEmailValid &&
+			this.props.handleClick()
+	}
 
 	render() {
 		return (
@@ -59,7 +90,11 @@ export default class UserIdentification extends Component {
 							onChange={this.handleChange}
 							value={this.state.firstName}
 						/>
-						{!this.state.firstNameError && <p className='error-message'>Name Error</p>}
+						{!this.state.firstNameError && (
+							<p className="error-message">
+								{this.state.firstNameErrorMessage}
+							</p>
+						)}
 					</div>
 					<div className="input-container">
 						<label htmlFor="lastName">გვარი*</label>
@@ -71,7 +106,9 @@ export default class UserIdentification extends Component {
 							onChange={this.handleChange}
 							value={this.state.lastName}
 						/>
-						{/* {!this.state.lastNameError && <p className='error-message'>Last Name Error</p>} */}
+						{!this.state.lastNameError && (
+							<p className="error-message">{this.state.lastNameErrorMessage}</p>
+						)}
 					</div>
 					<div className="input-container">
 						<label htmlFor="email">მეილი*</label>
@@ -83,21 +120,21 @@ export default class UserIdentification extends Component {
 							onChange={this.handleChange}
 							value={this.state.email}
 						/>
-						{/* {!this.state.emailError && <p className='error-message'>Email Error</p>} */}
+						{!this.state.emailError && (
+							<p className="error-message">{this.state.emailErrorMessage}</p>
+						)}
 					</div>
 				</form>
 				<hr className="form-line"></hr>
 				<div className="text-required">
 					*-ით მონიშნული ველების შევსება სავალდებულოა
 				</div>
-				<div className="scan-logo-container scan"></div>
-				<div className="scan-image-container scan2"></div>
 				<button
 					className="next-btn"
 					disabled={
 						!this.state.firstName || !this.state.lastName || !this.state.email
 					}
-					onClick={this.props.handleClick}></button>
+					onClick={this.handleButtonClicked}></button>
 			</>
 		)
 	}

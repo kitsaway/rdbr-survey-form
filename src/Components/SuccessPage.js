@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import React, { Component } from "react"
 
-export default class SuccessPage extends Component {
-    render() {
-        return (
-            <div>
-                
-            </div>
-        )
-    }
+export default function SuccessPage() {
+	return (
+		<div className="success-page">
+			<p>მადლობა</p>
+			<div className="star1"></div>
+			<div className="star2"></div>
+		</div>
+	)
 }
