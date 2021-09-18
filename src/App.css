@@ -8,6 +8,11 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+	scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+	display: none;
 }
 
 body {
@@ -56,11 +61,6 @@ input[type="radio"] {
 	margin-top: 5px;
 }
 
-input[type="radio"]::before {
-	content: "";
-	color: #000;
-}
-
 input[type="date"] {
 	margin-top: 32px;
 }
@@ -81,6 +81,11 @@ button {
 }
 
 /*General Classes*/
+.container{
+	width: 1920px;
+	height: 2000px;
+}
+
 .start-page {
 	width: 100vw;
 	height: 100vh;
@@ -278,8 +283,7 @@ button {
 	padding-top: 8px;
 }
 
-.additional-text,
-.additional-link {
+.additional-text{
 	position: absolute;
 	width: 337px;
 	height: 93px;
@@ -287,16 +291,10 @@ button {
 	left: 61px;
 }
 
-.additional-text a {
-	position: absolute;
-	left: 0;
-	top: 97px;
-}
-
 .next-btn {
 	position: absolute;
 	width: 15px;
-	height: 20.63px;
+	height: 24px;
 	left: calc(50% - 14px / 2 + 79px);
 	bottom: 104.3px;
 	background-image: url("./Images/nextBtn.png");
@@ -311,8 +309,8 @@ button {
 .prev-btn {
 	position: absolute;
 	width: 15px;
-	height: 20.63px;
-	right: calc(50% - 14px / 2 + 79px);
+	height: 24px;
+	right: calc(50% - 15px / 2 + 79px);
 	bottom: 104.3px;
 	background-image: url("./Images/nextBtn.png");
 	transform: matrix(-1, 0, 0, 1, 0, 0);
@@ -395,13 +393,14 @@ button {
 	color: #f15524;
 }
 .additional-text {
+	font-weight: 400;
+	font-style: normal;
 	font-size: 20px;
 	line-height: 24px;
-	color: #232323;
+	color: #23232386;
 }
 
-.additional-link,
-.additional-text a {
+.additional-link{
 	font-size: 20px;
 	line-height: 24px;
 	text-decoration: none;
@@ -427,15 +426,15 @@ button {
 	position: absolute;
 	left: 463px;
 	font-size: 20px;
+	cursor: pointer;
 }
 
 .back-btn {
 	position: absolute;
 	right: 0%;
 	left: 50%;
-	top: 1894px;
+	top: 1934px;
 	bottom: 0px;
-	margin-bottom: 25px;
 }
 
 .success-page {

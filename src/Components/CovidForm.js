@@ -14,12 +14,17 @@ export default function CovidForm() {
 	return (
 		<div>
 			<Header />
-			<CovidQuestions />
+			<form>
+				<CovidQuestions />
+				<button
+					className="next-btn"
+					type="submit"
+					onClick={handleClickNext}></button>
+			</form>
 			<div className="vaccine-logo-container vaccinate"></div>
 			<div className="vaccine-image-container vaccinate2"></div>
 
-			<button className="prev-btn" type="submit" onClick={handleClickPrev}></button>
-			<button className="next-btn" type="submit" onClick={handleClickNext}></button>
+			<button className="prev-btn" onClick={handleClickPrev}></button>
 		</div>
 	)
 }

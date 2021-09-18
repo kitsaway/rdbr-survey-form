@@ -12,12 +12,11 @@ export default function VaccineForm() {
 		history.push("/success-page")
 	}
 	return (
-		<div>
+		<div className="container">
 			<Header />
 			<AdviceQuestions handleSubmit={handleSubmit} />
 			<button
 				className="prev-btn back-btn"
-				type="submit"
 				onClick={handleClickPrev}></button>
 			<div className="bike-logo-container bike"></div>
 			<div className="bike-image-container bike2"></div>

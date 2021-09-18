@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 
-// აუცილებელი ველების შევსების ვალიდაცია
+// აქ მჭირდება აუცილებელი ველების შევსების ვალიდაცია
 
 export default class VaccineQuestions extends Component {
 	state = {
@@ -40,9 +40,7 @@ export default class VaccineQuestions extends Component {
 					},
 					{
 						option: "პირველი დოზა და არ დავრეგისტრირებულვარ მეორეზე",
-						type: "radio",
-						additionalText: "რომ აღარ გადადო, \n ბარემ ეხლავე დარეგისტრირდი - ",
-						link: "https://booking.moh.gov.ge/",
+						type: "radio"
 					},
 				],
 			},
@@ -60,16 +58,12 @@ export default class VaccineQuestions extends Component {
 					},
 					{
 						option: "არ ვგეგმავ",
-						type: "radio",
-						link: "https://booking.moh.gov.ge/",
+						type: "radio"
 					},
 					{
 						option: "გადატანილი მაქვს და ვგეგმავ აცრას",
 
-						type: "radio",
-						additionalText:
-							"ახალი პროტოკოლით, კოვიდის გადატანიდან 1 თვის შემდეგ შეგიძლიათ ვაქცინის გაკეთება. რეგისტრაციის ლინკი - ",
-						link: "https://booking.moh.gov.ge/",
+						type: "radio"
 					},
 				],
 			},
@@ -77,11 +71,13 @@ export default class VaccineQuestions extends Component {
 	}
 
 	handleAnswer = (value, question) => {
-		let newList = [...this.state.list]
-		newList[newList.findIndex((x) => x.question === question)].selectedanswer =
-			value
+		let list = [...this.state.list]
+		const index = list.findIndex((x) => x.question === question) // მოქმედი კითხვა
+		const newList = list.slice(index)
+		newList.map((listItem) => (listItem.selectedanswer = null)) //  ვშლი არჩეულ პასუხს
+		list[index].selectedanswer = value // ვანიჭებ ახალ პასუხს
 		this.setState({
-			list: newList,
+			list: list,
 		})
 	}
 
@@ -95,9 +91,9 @@ export default class VaccineQuestions extends Component {
 }
 
 const Question = (props) => (
-	<div className="question-container" key="">
+	<div className="question-container">
 		{props.list.map(
-			(object) =>
+			(object) => 
 				(object.default ||
 					// Goes through array objects
 					// Finds Question that is child of previous question
@@ -110,7 +106,7 @@ const Question = (props) => (
 						<div className="answer-container">
 							{object.answers.map(function (ans) {
 								if (
-									ans.type === "radio" &&
+								
 									object.selectedanswer ===
 										"პირველი დოზა და არ დავრეგისტრირებულვარ მეორეზე"
 								) {
@@ -125,15 +121,18 @@ const Question = (props) => (
 												}></input>
 											<label className="answer-text">{ans.option}</label>
 											<p className="additional-text">
-												{ans.additionalText}
-												<a href={ans.link} rel="noreffer" target="_blank">
-													{ans.link}
+												რომ აღარ გადადო, <br /> ბარემ ახლავე დარეგისტრირდი -
+												<a
+													className="additional-link"
+													href="https://booking.moh.gov.ge/"
+													rel="noreferrer"
+													target="_blank">
+													https://booking.moh.gov.ge/
 												</a>
 											</p>
 										</div>
 									)
 								} else if (
-									ans.type === "radio" &&
 									object.selectedanswer === "არ ვგეგმავ"
 								) {
 									return (
@@ -144,15 +143,20 @@ const Question = (props) => (
 												value={ans.option}
 												onChange={(e) =>
 													props.handleAnswer(e.target.value, object.question)
-												}></input>
+												}
+												required></input>
 											<label className="answer-text">{ans.option}</label>
-											<a className="additional-link" href={ans.link} rel="noreffer" target="_blank">
-												{ans.link}
+											<p className="additional-text"><a
+												className="additional-link"
+												href="https://booking.moh.gov.ge/"
+												rel="noreferrer"
+												target="_blank">
+												👉 https://booking.moh.gov.ge/
 											</a>
+											</p>
 										</div>
 									)
 								} else if (
-									ans.type === "radio" &&
 									object.selectedanswer === "გადატანილი მაქვს და ვგეგმავ აცრას"
 								) {
 									return (
@@ -163,12 +167,18 @@ const Question = (props) => (
 												value={ans.option}
 												onChange={(e) =>
 													props.handleAnswer(e.target.value, object.question)
-												}></input>
+												}
+												required></input>
 											<label className="answer-text">{ans.option}</label>
 											<p className="additional-text">
-												{ans.additionalText}
-												<a href={ans.link} rel="noreffer" target="_blank">
-												    {ans.link}
+												ახალი პროტოკოლით, კოვიდის გადატანიდან 1 თვის შემდეგ
+												შეგიძლიათ ვაქცინის გაკეთება. <br /><br/> 👉 რეგისტრაციის ბმული <br/> 
+												<a
+													className="additional-link"
+													href="https://booking.moh.gov.ge/"
+													rel="noreferrer"
+													target="_blank">
+													https://booking.moh.gov.ge/
 												</a>
 											</p>
 										</div>
@@ -182,7 +192,7 @@ const Question = (props) => (
 												value={ans.option}
 												onChange={(e) =>
 													props.handleAnswer(e.target.value, object.question)
-												}></input>
+												} required></input>
 											<label className="answer-text">{ans.option}</label>
 										</div>
 									)

@@ -8,6 +8,7 @@ export default class AdviceQuestions extends Component {
 				question:
 					"რა სიხშირით შეიძლება გვქონდეს საერთო არაფორმალური ონლაინ შეხვედრები, სადაც ყველა სურვილისამებრ ჩაერთვება?*",
 				selectedanswer: null,
+				isChecked: false,
 				answers: [
 					{
 						option: "კვირაში ორჯერ",
@@ -31,7 +32,7 @@ export default class AdviceQuestions extends Component {
 				id: "working-from-office",
 				question: "კვირაში რამდენი დღე ისურვებდი ოფისიდან მუშაობას?*",
 				selectedanswer: null,
-
+				isChecked: false,
 				answers: [
 					{
 						option: "0",
@@ -63,6 +64,7 @@ export default class AdviceQuestions extends Component {
 				id: "opinion-about-meetings",
 				question: "რას ფიქრობ ფიზიკურ შეკრებებზე?*",
 				selectedanswer: null,
+				isChecked: false,
 				answers: [
 					{
 						type: "textarea",
@@ -74,6 +76,7 @@ export default class AdviceQuestions extends Component {
 				question:
 					"რას ფიქრობ არსებულ გარემოზე: რა მოგწონს, რას დაამატებდი, რას შეცვლიდი?*",
 				selectedanswer: null,
+				isChecked: false,
 				answers: [
 					{
 						type: "textarea",
@@ -83,14 +86,31 @@ export default class AdviceQuestions extends Component {
 		],
 	}
 
-	handleAnswer = (value, question) => {
+	handleAnswer = (value, question, checked) => {
 		let newList = [...this.state.list]
 		newList[newList.findIndex((x) => x.question === question)].selectedanswer =
 			value
+		// newList[newList.findIndex((x) => x.question === question)].isChecked =
+		// 	checked
+		// if (value === null) {
+		// 	checked = false
+		// } else {
+		// 	checked = true
+		// }
 		this.setState({
 			list: newList,
 		})
 	}
+
+	// handleClick = (list) => {
+	// 	list.map((object) => {
+	// 		if(object.isChecked){
+	// 			this.props.handleSubmit();
+	// 		}else{
+	// 			console.log("jjjj")
+	// 		}
+	// 	})
+	// }
 	render() {
 		return (
 			<form className="questions-form">
@@ -102,8 +122,16 @@ export default class AdviceQuestions extends Component {
 					<br /> პანდემიის პერიოდში ერთმანეთსაც იშვიათად ვნახულობთ პირისპირ და
 					ყოველდღიური კომუნიკაციაც გაიშვიათდა.
 				</p>
-				<Question list={this.state.list} handleAnswer={this.handleAnswer} />
-				<button type="submit" className="submit-btn" onClick={this.props.handleSubmit}>დასრულება</button>
+				<Question
+					list={this.state.list}
+					handleAnswer={this.handleAnswer}
+				/>
+				<button
+					type="submit"
+					className="submit-btn"
+					onClick={this.props.handleSubmit}>
+					დასრულება
+				</button>
 			</form>
 		)
 	}
