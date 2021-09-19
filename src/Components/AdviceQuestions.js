@@ -90,27 +90,11 @@ export default class AdviceQuestions extends Component {
 		let newList = [...this.state.list]
 		newList[newList.findIndex((x) => x.question === question)].selectedanswer =
 			value
-		// newList[newList.findIndex((x) => x.question === question)].isChecked =
-		// 	checked
-		// if (value === null) {
-		// 	checked = false
-		// } else {
-		// 	checked = true
-		// }
 		this.setState({
 			list: newList,
 		})
 	}
 
-	// handleClick = (list) => {
-	// 	list.map((object) => {
-	// 		if(object.isChecked){
-	// 			this.props.handleSubmit();
-	// 		}else{
-	// 			console.log("jjjj")
-	// 		}
-	// 	})
-	// }
 	render() {
 		return (
 			<form className="questions-form">

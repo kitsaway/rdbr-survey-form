@@ -86,11 +86,11 @@ export default class CovidQuestions extends Component {
 
 	handleAnswer = (value, question) => {
 		let list = [...this.state.list]
-		// minda vipovo axla romeli kitxvacaa imis shvili da wavushalo selected answer
-		const index = list.findIndex((x) => x.question === question) // მოქმედი კითხვა
+		// Find current question's child question and remove its selected answer
+		const index = list.findIndex((x) => x.question === question) 
 		const newList = list.slice(index)
-		newList.map((listItem) => (listItem.selectedanswer = null)) //  ვშლი არჩეულ პასუხს
-		list[index].selectedanswer = value // ვანიჭებ ახალ პასუხს
+		newList.map((listItem) => (listItem.selectedanswer = null)) 
+		list[index].selectedanswer = value 
 		console.table(list)
 		this.setState({
 			list: list

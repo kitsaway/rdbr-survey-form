@@ -8,16 +8,14 @@ export default function VaccineForm() {
 	const handleClickPrev = () => {
 		history.push("/vaccine-form/3")
 	}
-	const handleSubmit= () => {
+	const handleSubmit = () => {
 		history.push("/success-page")
 	}
 	return (
 		<div className="container">
 			<Header />
 			<AdviceQuestions handleSubmit={handleSubmit} />
-			<button
-				className="prev-btn back-btn"
-				onClick={handleClickPrev}></button>
+			<button className="prev-btn back-btn" onClick={handleClickPrev}></button>
 			<div className="bike-logo-container bike"></div>
 			<div className="bike-image-container bike2"></div>
 		</div>

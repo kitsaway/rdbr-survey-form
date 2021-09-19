@@ -72,12 +72,12 @@ export default class VaccineQuestions extends Component {
 
 	handleAnswer = (value, question) => {
 		let list = [...this.state.list]
-		const index = list.findIndex((x) => x.question === question) // მოქმედი კითხვა
+		const index = list.findIndex((x) => x.question === question) 
 		const newList = list.slice(index)
-		newList.map((listItem) => (listItem.selectedanswer = null)) //  ვშლი არჩეულ პასუხს
-		list[index].selectedanswer = value // ვანიჭებ ახალ პასუხს
+		newList.map((listItem) => (listItem.selectedanswer = null)) 
+		list[index].selectedanswer = value 
 		this.setState({
-			list: list,
+			list: list
 		})
 	}
 
